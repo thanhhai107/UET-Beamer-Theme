@@ -1,0 +1,148 @@
+\ProvidesPackage{beamerouterthemeuet}[UET outer theme]
+
+\mode<presentation>
+
+\newlength{\titlepagepadding}
+\newlength{\logoheight}
+\setlength{\logoheight}{0.15\paperheight}
+
+\pgfdeclareimage[height=\logoheight]{logo}{res/logo-uet.png}
+
+\newcommand{\uetslogan}{INNOVATION -- PIONEERING -- HIGH QUALITY}
+\newcommand{\slogan}[1]{\renewcommand{\uetslogan}{#1}}
+
+\iflongslide
+	\newcommand{\titlepagetextwidth}{0.8\paperwidth}
+	\pgfdeclareimage[width=0.261\paperwidth]{logo}{./res/logo-uet.png}
+	\pgfdeclareimage[width=\paperwidth]{framebg}{./res/uet-bg-169-4.png}
+	\pgfdeclareimage[width=\paperwidth]{titleframebg}{./res/uet-bg-169-3.png}
+	\pgfdeclareimage[width=\paperwidth]{thankframebg}{./res/uet-bg-169-5.png}
+	\pgfdeclareimage[width=\paperwidth]{textslidebg}{./res/uet-text-slide-169.png}
+	\pgfdeclareimage[width=\paperwidth]{imageslidebg}{./res/uet-image-slide-169.png}
+	\setlength{\titlepagepadding}{0.04431314623338257\paperwidth}
+\else
+	\newcommand{\titlepagetextwidth}{0.7\paperwidth}
+	\pgfdeclareimage[width=0.282\paperwidth]{logo}{./res/logo-uet.png}
+	\pgfdeclareimage[width=\paperwidth]{framebg}{./res/uet-bg-43-4.png}
+	\pgfdeclareimage[width=\paperwidth]{titleframebg}{./res/uet-bg-43-3.png}
+	\pgfdeclareimage[width=\paperwidth]{thankframebg}{./res/uet-bg-43-5.png}
+	\pgfdeclareimage[width=\paperwidth]{textslidebg}{./res/uet-text-slide-43.png}
+	\pgfdeclareimage[width=\paperwidth]{imageslidebg}{./res/uet-image-slide-43.png}
+	\setlength{\titlepagepadding}{0.069423929098966\paperwidth}
+\fi
+
+\newcommand{\frametitlehook}[1]{}
+
+\BeforeBeginEnvironment{frame}{%
+	\setbeamertemplate{background canvas}{}
+
+	\setbeamertemplate{headline}{%
+		\nointerlineskip
+		\newcommand{\ls}{0.05\paperwidth}
+		\usebeamerfont{frametitle}
+		\begin{beamercolorbox}[wd=\paperwidth]{none}
+			\begin{beamercolorbox}[left,leftskip=\ls,wd=0.9\paperwidth,ht=2.25ex,dp=1ex]{frametitle}%
+				\ifx\insertframetitle\empty\else
+					\insertframetitle
+				\fi
+			\end{beamercolorbox}%
+			\begin{beamercolorbox}[center,wd=0.1\paperwidth,ht=2.25ex,dp=1ex]{page number in head/foot}%
+				\insertframenumber{}/\inserttotalframenumber%
+			\end{beamercolorbox}%
+		\end{beamercolorbox}
+		\usebeamerfont{framesubtitle}
+		\ifx\insertframesubtitle\empty
+			\begin{beamercolorbox}[sep=0pt,wd=\paperwidth,ht=2pt,dp=2pt,vmode]{framesubtitle}%
+			\end{beamercolorbox}%
+		\else
+			\begin{beamercolorbox}[left,wd=\paperwidth,ht=2.25ex,dp=1ex,leftskip=\ls]{framesubtitle}%
+				\insertframesubtitle
+			\end{beamercolorbox}%
+		\fi
+		\ifx\insertframetitle\empty
+			\gdef\beamer@frametitle{~}
+		\fi
+	}
+
+	\setbeamertemplate{frametitle}{\vspace{2.25ex}}
+	\setbeamertemplate{footline}{}
+	\setbeamertemplate{navigation symbol}{}
+}
+
+\defbeamertemplate{background canvas}{Title}{%
+	\pgfuseimage{titleframebg}
+}
+\defbeamertemplate{background canvas}{Thank}{%
+	\pgfuseimage{thankframebg}
+}
+
+\makeatletter
+\define@key{beamerframe}{Title}[true]{
+	\setbeamertemplate{background canvas}[Title]
+	\setbeamertemplate{headline}{}
+	\setbeamertemplate{footline}{}
+}
+\define@key{beamerframe}{Thank}[true]{
+	\setbeamertemplate{background canvas}[Thank]
+	\setbeamertemplate{headline}{}
+	\setbeamertemplate{footline}{}
+}
+\define@key{beamerframe}{Image}[true]{
+	\setbeamertemplate{background canvas}{\pgfuseimage{imageslidebg}}
+}
+\makeatother
+
+\newcommand{\thankpage}[1][Thank You for Your Attention!\\Q\&A]{%
+	\vfill
+	\hfill
+	\begin{minipage}{0.50\paperwidth}
+		\centering
+		\Large\bfseries\color{uetblue}
+		#1
+	\end{minipage}%
+	\hspace{0.05\paperwidth}
+	\vfill
+}
+
+\setbeamertemplate{title page}{	
+	\nointerlineskip
+	\newlength{\titlepad}
+	\setlength{\titlepad}{0.15\paperwidth}
+	\newlength{\titleareaheight}
+	\newlength{\titleareawidth}
+	\newlength{\titleareadepth}
+	\setlength{\titleareaheight}{\paperheight - 0.5\titlepad}
+	\setlength{\titleareawidth}{\paperwidth - 0.5\titlepad}
+	\parbox[t][\titleareaheight]{\titleareawidth}{%
+		\begin{beamercolorbox}[wd=\titleareawidth]{none}
+			\pgfuseimage{logo}%
+		\end{beamercolorbox}
+		\vfill
+		\begin{beamercolorbox}[wd=\titleareawidth]{title}
+			\usebeamerfont{title}\inserttitle
+		\end{beamercolorbox}
+        \smallskip
+		\ifx\insertsubtitle\empty\relax\else
+			\begin{beamercolorbox}[wd=\titleareawidth]{subtitle}
+				\usebeamerfont{subtitle}\insertsubtitle
+			\end{beamercolorbox}
+		\fi
+		\vspace{0.7cm}
+		\begin{beamercolorbox}[wd=\titleareawidth]{author}
+			\usebeamerfont{author}\large\insertauthor
+		\end{beamercolorbox}
+		\vspace{0.15cm}
+		\ifx\insertinstitute\empty\relax\else
+			\begin{beamercolorbox}[wd=\titleareawidth]{author}
+				\footnotesize\insertinstitute
+			\end{beamercolorbox}
+			\vspace{0.15cm}
+		\fi
+		\begin{beamercolorbox}[wd=\titleareawidth]{author}
+			\usebeamerfont{date}\insertdate
+		\end{beamercolorbox}
+		\vfill
+	}
+}
+
+\mode<all>

@@ -1,0 +1,106 @@
+\documentclass[aspectratio=169]{beamer}
+\usepackage{tikz}
+\usepackage{calc}
+\usepackage{polyglossia}
+\setmainlanguage{vietnamese}
+\usepackage{amsthm,amsmath,amssymb}
+\newtheorem{thm}{Định lý}
+\newtheorem{defn}{Định nghĩa}
+\usepackage{subcaption}
+\setbeamertemplate{theorems}[numbered]
+
+\makeatletter
+\newcommand{\leqnomode}{\tagsleft@true}
+\newcommand{\reqnomode}{\tagsleft@false}
+\makeatother
+\let\Mathcal\mathcal
+\usepackage{dutchcal}
+\newcommand{\norm}[1]{\left\lVert#1\right\rVert}
+\newcommand{\abs}[1]{\left\lvert#1\right\rvert}
+\newcommand{\gr}{\operatorname{gr}}
+\newcommand{\rank}{\operatorname{rank}}
+\newcommand{\toto}{\rightrightarrows}
+\newcommand{\F}{\Mathcal{F}}
+\newcommand{\K}{\mathbb{K}}
+\newcommand{\R}{\mathbb{R}}
+\def\C{\mathbb{C}}
+\newcommand{\dom}{\operatorname{dom}}
+\newcommand{\im}{\operatorname{im}}
+\newcommand{\g}{\mathcal{g}}
+\global\long\def\MP{\text{mp}}
+
+\newcommand{\Image}[1]{%
+	\sbox0{\includegraphics[height=0.65\paperheight]{#1}}%
+	\ifdim\wd0 < \textwidth
+	\includegraphics[height=0.65\paperheight]{#1}%
+	\else
+	\includegraphics[width=\textwidth]{#1}%
+	\fi%
+}
+
+\newif\iffirsttoc
+\firsttoctrue
+\AtBeginSubsection[]
+{
+    \begin{frame}
+        \frametitle{Mục lục}  
+        \iffirsttoc
+            \tableofcontents
+            \global\firsttocfalse
+        \else
+            \tableofcontents[currentsection,
+            subsectionstyle=show/shaded/hide,
+            subsubsectionstyle=show/show/show/hide
+            ]
+        \fi
+    \end{frame} 
+}
+\setbeamertemplate{caption}[numbered]
+
+\usetheme{uet}
+
+\title{Seminar II:}
+\subtitle{\textbf{Ứng dụng toán tử tuyến tính đa trị trong việc tìm\\bán kính điều khiển có cấu trúc của hệ chịu đa nhiễu}}
+
+\author{Sinh viên A -- 2021xxxx\\Sinh viên B -- 2021yyyy}
+\date{Tháng 10, 2026}
+
+\begin{document}
+\begin{frame}[noframenumbering,Title]
+	\maketitle
+\end{frame}
+
+\section{Giới thiệu}
+\input{example.parts/introduction.tex}
+\input{example.parts/preliminaries.tex}
+\section{Bán kính điều khiển có cấu trúc}
+\input{example.parts/structured-distance.tex}
+\section{Đa nhiễu}
+\input{example.parts/multi-perturbations.tex}
+\input{example.parts/multi-perturbation-example.tex}
+
+\section{Trình bày mẫu}
+\begin{frame}{Ví dụ các khối nội dung (Blocks)}
+    \begin{block}{Khối thông tin tiêu chuẩn}
+        Trường Đại học Công nghệ -- ĐHQGHN (VNU University of Engineering and Technology).
+    \end{block}
+    \begin{exampleblock}{Khối ví dụ}
+        Khối ví dụ sử dụng màu xanh phụ của UET.
+    \end{exampleblock}
+    \begin{alertblock}{Khối cảnh báo / Chú ý}
+        Khối chú ý sử dụng màu vàng cam thương hiệu của UET.
+    \end{alertblock}
+\end{frame}
+
+\section{Tài liệu tham khảo}
+\begin{frame}{Tài liệu tham khảo}
+    \nocite{*}
+    \bibliographystyle{plainnat}
+    \bibliography{example.refs.bib}
+\end{frame}
+
+\begin{frame}[noframenumbering,Thank]
+    \thankpage[Cảm ơn thầy cô và các bạn đã chú ý lắng nghe!]
+\end{frame}
+
+\end{document}

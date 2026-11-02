@@ -1,0 +1,80 @@
+\NeedsTeXFormat{LaTeX2e}
+\ProvidesPackage{beamerthemeuet}[Beamer UET theme]
+\RequirePackage{tikz}
+\RequirePackage{xparse}
+\RequirePackage{calc}
+\usetikzlibrary{positioning,shadows}
+\mode<presentation>
+
+\newif\iflongslide
+\pgfmathparse{(\paperwidth / \paperheight) > 1.5}
+\let\longslide\pgfmathresult
+\if\longslide1
+	\longslidetrue
+\else
+	\longslidefalse
+\fi
+
+\usecolortheme{uet}
+\usefonttheme{uet}
+\useinnertheme{uet}
+\useoutertheme{uet}
+
+\setbeamersize{sidebar width left=0pt}
+\setlength{\headsep}{2.25ex}
+
+\def\uet@titlealign{flushleft}
+\DeclareOption{titleleft}{
+    \def\uet@titlealign{flushleft}
+}
+\DeclareOption{titlecenter}{
+    \def\uet@titlealign{center}
+}
+\DeclareOption{titleright}{
+    \def\uet@titlealign{flushright}
+}
+
+\def\uet@authoralign{flushright}
+\DeclareOption{authorleft}{
+    \def\uet@authoralign{flushleft}
+}
+\DeclareOption{authorcenter}{
+    \def\uet@authoralign{center}
+}
+\DeclareOption{authorright}{
+    \def\uet@authoralign{flushleft}
+}
+
+\newif\ifshowsections
+\DeclareOption{showsections}{\showsectionstrue}
+\DeclareOption{noshowsections}{\showsectionsfalse}
+\AtBeginDocument{
+    \ifshowsections
+        \AtBeginSection[] {
+            \begin{frame}[plain, noframenumbering]
+                \tableofcontents[currentsection]
+            \end{frame}
+        }
+    \fi
+}
+
+\newif\iffootlinesection
+\DeclareOption{footlinesection}{\footlinesectiontrue}
+\DeclareOption{nofootlinesection}{\footlinesectionfalse}
+\newif\iffootlinesubsection
+\DeclareOption{footlinesubsection}{\footlinesubsectiontrue}
+\DeclareOption{nofootlinesubsection}{\footlinesubsectionfalse}
+
+\newif\ifshowtotalpage
+\showtotalpagefalse
+\DeclareOption{showtotalpage}{\showtotalpagetrue}
+\DeclareOption{noshowtotalpage}{\showtotalpagefalse}
+\ProcessOptions
+
+\AtBeginDocument{
+    \newcommand{\imgheight}{0.7\textheight}
+}
+
+\setbeamertemplate{navigation symbols}{}
+
+\mode<all>
